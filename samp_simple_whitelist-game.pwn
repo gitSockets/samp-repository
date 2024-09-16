@@ -5,6 +5,10 @@
 #include <Dini>
 #include <zcmd> // or using Pawn.CMD
 
+//
+// Create Directory "Server_Whitelist" in your "scriptfiles" folder.
+//
+
 main() {}
 
 public OnFilterScriptInit() {
