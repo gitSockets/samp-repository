@@ -118,8 +118,8 @@ public HideAllPlayerPlayerTextDraws() {
 }
 
 // clicked - if your player-specific PlayerTextdraw is clickable
-public OnPlayerClickPlayerPlayerTextDraw(playerid, PlayerPlayerText: clickedid) {
-    if (clickedid == myPlayerTD[playerid][0]) {
+public OnPlayerClickPlayerPlayerTextDraw(playerid, PlayerText: playertextid) {
+    if (playertextid == myPlayerTD[playerid][0]) {
         // say hello
         SendClientMessage(playerid, -1, "Hello from your personal PlayerTextDraw!");
     }
