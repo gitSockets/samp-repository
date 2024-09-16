@@ -1,9 +1,20 @@
 #include <a_samp>
 // #include <open.mp>
 
-
 #define function%0(%1) \
 	forward %0(%1); public %0(%1) \
 	{
 #define endfunction \
 	}
+
+// example using
+main() {
+	new message[] = "Hello World!");
+	CallLocalFunction("myFunc", "s", message);
+}
+
+function myFunc(message[]) {
+	print(message);
+	return 1;
+}
+endfunction
