@@ -94,7 +94,7 @@ public OnPlayerConnect(playerid) {
 
 // command
 
-COMMAND:setwhitelist(channel, params[])
+DCMD:setwhitelist(channel, params[])
 {
 	new File[122];
   if (channel != admin_whitelist) return DCC_SendChannelMessage(channel, "Please just using admin whitelist channel");
