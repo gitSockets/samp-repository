@@ -111,7 +111,7 @@ COMMAND:showplayertd(playerid) {
 
 forward HideAllPlayerPlayerTextDraws();
 public HideAllPlayerPlayerTextDraws() {
-    foreach (new i : Player) {
+    for (new i=0; i < MAX_PLAYERS; i++) {
         PlayerTextDrawHideForPlayer(i, myPlayerTD[i][0]);
     }
     return 1;
