@@ -87,7 +87,7 @@ PlayerTextDrawShowForPlayer(playerid, myPlayerTD[playerid][0]); // if show for p
 PlayerTextDrawHideForPlayer(playerid, myPlayerTD[playerid][0]); // if hide for player
 
 // example show for player
-public OnPlayerConnect(playerid) {
+public OnPlayerSpawn(playerid) {
     PlayerTextDrawShowForPlayer(playerid, myPlayerTD[playerid][0]);
     SetTimerEx("HidePlayerPlayerTextDraw", 5000, false, "d", playerid); // Hide after 5 seconds
     return 1;
