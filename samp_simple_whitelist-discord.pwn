@@ -12,7 +12,7 @@
 //
 
 main() {
-  new DCC_Channel: admin_whitelist = DCC_FindChannelById("Replace this');
+  new DCC_Channel: admin_whitelist = DCC_FindChannelById("Replace this");
 }
 
 public OnFilterScriptInit() {
