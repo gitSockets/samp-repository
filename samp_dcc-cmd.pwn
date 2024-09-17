@@ -40,7 +40,7 @@ DCMD:announce(channel, params[]) {
   if (strlen(textAnnounce) < 1 || strlen(textAnnounce) > 55)
     return DCC_SendChannelMessage(channel, "Please input your messages 1 - 55!");
   
-  for (new i=0; i < MAX_PLAYERS; i++) // or using foreach and just use SendClientMessageToAll
+  for (new i=0; i < MAX_PLAYERS; i++)
   {
     new string[122+1];
     format(string, sizeof(string), "{FF0000}[ADMIN]: {FFF070}%s {FF0000}[ANNOUNCE]: %s", adminName, textAnnounce);
