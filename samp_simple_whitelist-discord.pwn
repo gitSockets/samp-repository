@@ -93,56 +93,76 @@ public OnPlayerConnect(playerid) {
 }
 
 // command
-
 DCMD:setwhitelist(channel, params[])
 {
-	new File[122];
-  if (channel != admin_whitelist) return DCC_SendChannelMessage(channel, "Please just using admin whitelist channel");
-  else { // or else
-		new name[24];
-		if(sscanf(params, "s[24]", name))
-		    return DCC_SendChannelMessage(channel, "/setwhitelist [Name_Name]");
+    new File[122];
 
-		format( File, sizeof( File ), "Server_Whitelist/%s.ini", name);
-		if( dini_Exists( File ) )
-		{
-			dini_IntSet(File, "status", 1);
-		}
-		else
-		{
-			dini_Create( File );
-			dini_IntSet(File, "status", 1);
-		}
-		new string[122+1];
-		format(string, sizeof(string), "Nama Pemain {FFF070}%s {FFFFFF}Berhasil Terdaftar!", name);
-		DCC_SendChannelMessage(channel, string);
-	}
-	return 1;
+    if (channel != admin_whitelist) 
+    {
+        return DCC_SendChannelMessage(channel, "Please use the admin whitelist channel only.");
+    }
+    else 
+    {
+        new name[24];
+        
+        if (sscanf(params, "s[24]", name)) 
+        {
+            return DCC_SendChannelMessage(channel, "/setwhitelist [Name_Name]");
+        }
+
+        format(File, sizeof(File), "Server_Whitelist/%s.ini", name);
+
+        if (dini_Exists(File)) 
+        {
+            dini_IntSet(File, "status", 1);
+        } 
+        else 
+        {
+            dini_Create(File);
+            dini_IntSet(File, "status", 1);
+        }
+
+        new string[123];
+        format(string, sizeof(string), "Player {FFF070}%s {FFFFFF}has been successfully whitelisted!", name);
+        DCC_SendChannelMessage(channel, string);
+    }
+
+    return 1;
 }
-
 
 DCMD:unwhitelist(channel, params[])
 {
-	new File[122];
-  if (channel != admin_whitelist) return DCC_SendChannelMessage(channel, "Please just using admin whitelist channel");
-  else { // or else
-		new name[24];
-		if(sscanf(params, "s[24]", name))
-		    return DCC_SendChannelMessage(channel, "/unwhitelist [Name_Name]");
+    new File[122];
 
-		format( File, sizeof( File ), "Server_Whitelist/%s.ini", name);
-		if( dini_Exists( File ) )
-		{
-			dini_IntSet(File, "status", 0);
-		}
-		else
-		{
-			dini_Create( File );
-			dini_IntSet(File, "status", 1);
-		}
-		new string[122+1];
-		format(string, sizeof(string), "Nama Pemain %s Berhasil Terhapus!", name);
-    DCC_SendChannelMessage(channel, string);
-  }
-	return 1;
+    if (channel != admin_whitelist) 
+    {
+        return DCC_SendChannelMessage(channel, "Please use the admin whitelist channel only.");
+    }
+    else 
+    {
+        new name[24];
+
+        if (sscanf(params, "s[24]", name)) 
+        {
+            return DCC_SendChannelMessage(channel, "/unwhitelist [Name_Name]");
+        }
+
+        format(File, sizeof(File), "Server_Whitelist/%s.ini", name);
+
+        if (dini_Exists(File)) 
+        {
+            dini_IntSet(File, "status", 0);
+        } 
+        else 
+        {
+            dini_Create(File);
+            dini_IntSet(File, "status", 1);
+        }
+
+        new string[123];
+        format(string, sizeof(string), "Player %s has been successfully removed from the whitelist!", name);
+        DCC_SendChannelMessage(channel, string);
+    }
+
+    return 1;
 }
