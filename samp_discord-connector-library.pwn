@@ -15,6 +15,7 @@
 
 main() {
   new DCC_Channel: announce_channel = DCC_FindChannelById("replace this");
+	new DCC_Channel: text_channel = DCC_FindChannelById("replace this");
 }
 
 public OnFilterScriptInit()
@@ -27,7 +28,29 @@ public OnFilterScriptExit()
   return 1;
 }
 
+GetPlayerNameEx(playerid)
+{
+  new name[MAX_PLAYER_NAME+1];
+  GetPlayerName(playerid, name, sizeof(name));
+  return 1;
+}
+
+// chat logs
+public OnPlayerText(playerid, text[])
+{
+	new string[222+1];
+  format(string, sizeof(string), "%s[%d] Says: %s", GetPlayerNameEx, playerid, text);
+  DCC_SendChannelMessage(text_channel, string);
+
+  //
+  return 0;
+}
+
+//
 // commands list
+//
+
+// announce
 DCMD:announce(channel, params[]) {
   if (channel != announce_channel) return DCC_SendChannelMessage(channel, "Gunakan Channel yang sesuai!");
 
