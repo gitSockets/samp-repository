@@ -16,6 +16,8 @@
 main() {
   new DCC_Channel: announce_channel = DCC_FindChannelById("replace this");
 	new DCC_Channel: text_channel = DCC_FindChannelById("replace this");
+  new DCC_Channel: command_channel = DCC_FindChannelById("replace this");
+}
 }
 
 public OnFilterScriptInit()
@@ -41,6 +43,17 @@ public OnPlayerText(playerid, text[])
 	new string[222+1];
   format(string, sizeof(string), "%s[%d] Says: %s", GetPlayerNameEx, playerid, text);
   DCC_SendChannelMessage(text_channel, string);
+
+  //
+  return 0;
+}
+
+// command logs
+public OnPlayerCommandText(playerid, cmdtext[])
+{
+	new string[222+1];
+  format(string, sizeof(string), "%s[%d] Using Command: %s", GetPlayerNameEx, playerid, cmdtext);
+  DCC_SendChannelMessage(command_channel, string);
 
   //
   return 0;
