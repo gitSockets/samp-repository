@@ -1,7 +1,11 @@
+//
+// this script not created only by Socket's.
+//
+
 // Install Dini from https://github.com/AndreT/samp-vortex-rp/blob/master/pawno/include/Dini.inc
 // included
 #include <a_samp> // open.mp
-#include <sscanf2> // or sscanf 1
+#include <sscanf> // or sscanf 2
 #include <Dini>
 #include <zcmd> // or using Pawn.CMD
 
