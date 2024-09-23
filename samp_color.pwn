@@ -1,6 +1,3 @@
-#include <a_samp>
-// #include <open.mp>
-
 // external string color
 #define KNOWNCOLOR_ACTIVEBORDER 0xB4B4B4FF
 #define KNOWNCOLOR_ACTIVECAPTION 0x99B4D1FF
