@@ -1,6 +1,7 @@
 //
-// Original Script: https://pastebin.com/X8dC3EXW
+// Original Code: https://pastebin.com/X8dC3EXW
 //
+
 #include <a_samp> // open.mp
 #include <zcmd> // or using pawn.cmd
 
