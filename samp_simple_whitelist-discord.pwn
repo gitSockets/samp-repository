@@ -8,6 +8,10 @@
 #include <discord-cmd> // needed
 
 //
+// this script not created only by Socket's.
+//
+
+//
 // Create Directory "Server_Whitelist" in your "scriptfiles" folder.
 //
 
