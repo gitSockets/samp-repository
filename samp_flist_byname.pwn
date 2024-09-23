@@ -1,5 +1,4 @@
 /**
-* FS Mendung
 * Author: Socket
 * No edited credit.
 * Adjust according to your gamemode's variable data.
