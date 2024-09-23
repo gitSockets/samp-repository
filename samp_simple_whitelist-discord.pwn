@@ -1,3 +1,7 @@
+//
+// this script not created only by Socket's.
+//
+
 // Install Dini from https://github.com/AndreT/samp-vortex-rp/blob/master/pawno/include/Dini.inc
 // included
 #include <a_samp> // open.mp
@@ -6,10 +10,6 @@
 #include <zcmd> // or using Pawn.CMD
 #include <discord-connector> // needed
 #include <discord-cmd> // needed
-
-//
-// this script not created only by Socket's.
-//
 
 //
 // Create Directory "Server_Whitelist" in your "scriptfiles" folder.
