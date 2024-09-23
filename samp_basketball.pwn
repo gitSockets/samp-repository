@@ -1,3 +1,7 @@
+//
+// original code https://pastebin.com/aAxyUx2D
+//
+
 #include <a_samp>
 
 new HavingBall[MAX_PLAYERS];
