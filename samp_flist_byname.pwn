@@ -1,7 +1,6 @@
 /**
-* Author: Socket
-* No edited credit.
-* Adjust according to your gamemode's variable data.
+* Copyright (C) Socket. All rights reserved.
+* Licensed under the terms described in the LICENSE file in the root of this project.
 */
 
 new lspd_on_duty[MAX_PLAYERS][24];
@@ -12,10 +11,7 @@ new count_lspd;
 new count_lsmd;
 new count_news;
 
-/*
-Example */
-
-#define DIALOG_UNDEFINED 9999 // DIALOG_UNUSED
+#define DIALOG_UNDEFINED (1945)
 
 RemovePlayerFromDuty(playerid, array[], count)
 {
