@@ -6,7 +6,7 @@
 // included
 #include <a_samp> // open.mp
 #include <sscanf> // or sscanf 2
-#include <Dini>
+#include <dini>
 #include <zcmd> // or using Pawn.CMD
 
 //
