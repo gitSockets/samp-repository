@@ -107,8 +107,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 // How to increment and decrement the count_?? data?
 // Place this in the response dialog for on duty and off duty for each faction
 // For example, in the response for on duty:
+
 /*
-// lspd:
+~ [LSPD]
 // on duty
 count_lspd++;
 GetPlayerName(playerid, lspd_on_duty[count_lspd - 1], sizeof(lspd_on_duty[count_lspd - 1]));
@@ -116,8 +117,7 @@ GetPlayerName(playerid, lspd_on_duty[count_lspd - 1], sizeof(lspd_on_duty[count_
 count_lspd--;
 RemovePlayerFromDuty(playerid, lspd_on_duty, count_lspd);
 
-
-// lsmd:
+~ [LSMD]
 // on duty
 count_lsmd++;
 GetPlayerName(playerid, lsmd_on_duty[count_lsmd - 1], sizeof(lsmd_on_duty[count_lsmd - 1]));
@@ -125,7 +125,7 @@ GetPlayerName(playerid, lsmd_on_duty[count_lsmd - 1], sizeof(lsmd_on_duty[count_
 count_lsmd--;
 RemovePlayerFromDuty(playerid, lsmd_on_duty, count_lsmd);
 
-// news:
+~ [SANEWS]
 // on duty
 count_news++;
 GetPlayerName(playerid, news_on_duty[count_news - 1], sizeof(news_on_duty[count_news - 1]));
@@ -134,4 +134,3 @@ count_news--;
 RemovePlayerFromDuty(playerid, news_on_duty, count_news);
 
 */
-
