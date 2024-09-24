@@ -142,7 +142,6 @@ COMMAND:skate(playerid, params[])
 
             SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Type Two!");
         } else {
-            if (getData_Skate[playerid][sType] == true) {
             DestroyObject(getData_Skate[playerid][sSkate]);
             RemovePlayerAttachedObject(playerid, INDEX_SKATE);
 
@@ -150,7 +149,6 @@ COMMAND:skate(playerid, params[])
             SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
 
             SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Type One!");
-            }
         }
     }
     else if (!strcmp(skate_option, "MODE One", false))
