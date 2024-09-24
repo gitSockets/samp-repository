@@ -1,46 +1,66 @@
+/**
+* Copyright (C) Socket. All rights reserved.
+* Licensed under the terms described in the LICENSE file in the root of this project.
+*/
+
 //
-// Original Code: https://pastebin.com/X8dC3EXW
+// Original Script: https://pastebin.com/X8dC3EXW
 //
 
+// required included
 #include <a_samp> // open.mp
-#include <zcmd> // or using pawn.cmd
+#include <sscanf> // or sscanf 2
+#include <zcmd> // or pawn.cmd
+
+#define __SOCKET__
 
 main() {}
 
-#define MODE_SKATE (0)        // 0 - medium speed | 1 - fast speed
-#define TYPE_SKATE (0)        // 0 - the skate is placed on the right arm | 1 - the skate is placed in the back
-#define INDEX_SKATE (0)       //is the slot that used SetPlayerAttachedObject
+public OnFilterScriptInit()
+{
+    return 1;
+}
 
-enum skate{
-	bool:sActive,
+public OnFilterScriptExit()
+{
+    return 1;
+}
+
+#define INDEX_SKATE (0)       //is the slot that used SetPlayerAttachedObject
+enum SKATE_ENUM {
+	bool: sActive,
+    bool: sMode,
+    bool: sType,
 	sSkate,
 };
-new InfoSkate[MAX_PLAYERS][skate];
+new getData_Skate[MAX_PLAYERS][SKATE_ENUM];
 
 public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 {
-    if (InfoSkate[playerid][sActive] && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+    if (getData_Skate[playerid][sActive] == true && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
     {
         static bool:act;
         SetPlayerArmedWeapon(playerid, 0);
 
         if (newkeys & KEY_HANDBRAKE)
         {
-            #if MODE_SKATE == 0
-            // medium speed
-            ApplyAnimation(playerid, "SKATE", "skate_run", 4.1, 1, 1, 1, 1, 1, 1);
-            #else
-            // fast speed
-            ApplyAnimation(playerid, "SKATE", "skate_sprint", 4.1, 1, 1, 1, 1, 1, 1);
-            #endif
+            if (getData_Skate[playerid][sMode] == true)
+            {
+                // medium speed
+                ApplyAnimation(playerid, "SKATE", "skate_run", 4.1, 1, 1, 1, 1, 1, 1);
+            }
+            else {
+                // fast speed
+                ApplyAnimation(playerid, "SKATE", "skate_sprint", 4.1, 1, 1, 1, 1, 1, 1);
+            }
 
             if (!act)
             {
                 act = true;
                 RemovePlayerAttachedObject(playerid, INDEX_SKATE);
-                DestroyObject(InfoSkate[playerid][sSkate]);
-                InfoSkate[playerid][sSkate] = CreateObject(19878, 0, 0, 0, 0, 0, 0);
-                AttachObjectToPlayer(InfoSkate[playerid][sSkate], playerid, -0.2, 0, -0.9, 0, 0, 90);
+                DestroyObject(getData_Skate[playerid][sSkate]);
+                getData_Skate[playerid][sSkate] = CreateObject(19878, 0, 0, 0, 0, 0, 0);
+                AttachObjectToPlayer(getData_Skate[playerid][sSkate], playerid, -0.2, 0, -0.9, 0, 0, 90);
             }
         }
 
@@ -51,60 +71,104 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
             if (act)
             {
                 act = false;
-                DestroyObject(InfoSkate[playerid][sSkate]);
+                DestroyObject(getData_Skate[playerid][sSkate]);
                 RemovePlayerAttachedObject(playerid, INDEX_SKATE);
 
-                #if TYPE_SKATE == 0
-                // the skate is placed on the right arm
-                SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
-                #else
-                // the skate is placed in the back
-                SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 1, 0.055999, -0.173999, -0.007000, -95.999893, -1.600010, 24.099992, 1.000000, 1.000000, 1.000000);
-                #endif
+                if (getData_Skate[playerid][sType] == false)
+                {
+                    // the skate is placed on the right arm
+                    SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
+                }
+                else {
+                    // the skate is placed in the back
+                    SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 1, 0.055999, -0.173999, -0.007000, -95.999893, -1.600010, 24.099992, 1.000000, 1.000000, 1.000000);
+                }
             }
         }
     }
+
     return 1;
 }
 
 COMMAND:skate(playerid, params[])
 {
-    if (!IsPlayerInAnyVehicle(playerid))
+    new skate_option[22];
+
+    if (IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, 0xFF0000FF, "You cant use this command in vehicle!");
+
+    if (sscanf(params, "s[22]", skate_option))
     {
+        SendClientMessage(playerid, -1, "/skate [Option]");
+        SendClientMessage(playerid, -1, "Option - /skate 'START', 'STOP', 'Type', 'MODE One', 'MODE Two'");
+        return 1;
+    }
+    if (!strcmp(skate_option, "START", false))
+    {
+        if (getData_Skate[playerid][sActive] == true) return SendClientMessage(playerid, -1, "Skate Allready Active!");
+
         ApplyAnimation(playerid, "CARRY", "null", 0, 0, 0, 0, 0, 0, 0);
         ApplyAnimation(playerid, "SKATE", "null", 0, 0, 0, 0, 0, 0, 0);
         ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.0, 0, 0, 0, 0, 0);
+
         SetPlayerArmedWeapon(playerid, 0);
 
-        if (!InfoSkate[playerid][sActive])
-        {
-            InfoSkate[playerid][sActive] = true;
-            DestroyObject(InfoSkate[playerid][sSkate]);
+        getData_Skate[playerid][sActive] = true;
+
+        // the skate is placed on the right arm
+        SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
+        
+        PlayerPlaySound(playerid, 1131);
+    }
+    else if (!strcmp(skate_option, "STOP", false))
+    {
+        if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate Allready No-Active!");
+
+        getData_Skate[playerid][sActive] = false;
+        DestroyObject(getData_Skate[playerid][sSkate]);
+        RemovePlayerAttachedObject(playerid, INDEX_SKATE);
+        PlayerPlaySound(playerid, 21000, 0, 0, 0);
+        SendClientMessage(playerid, -1, "{FFFFFF}Skate: {B00000}Skate has Stopped!{FFFFFF}!.");
+    }
+    else if (!strcmp(skate_option, "Type", false))
+    {
+        if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "You Can't Only Change Skate Type Skate in mode Active!");
+
+        if (getData_Skate[playerid][sType] == false) {
+            DestroyObject(getData_Skate[playerid][sSkate]);
             RemovePlayerAttachedObject(playerid, INDEX_SKATE);
 
-            #if TYPE_SKATE == 0
-            // the skate is placed on the right arm
-            SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
-            #else
             // the skate is placed in the back
             SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 1, 0.055999, -0.173999, -0.007000, -95.999893, -1.600010, 24.099992, 1.000000, 1.000000, 1.000000);
-            #endif
 
-            PlayerPlaySound(playerid, 21000, 0, 0, 0);
-            SendClientMessage(playerid, -1, "{FFFFFF}Skate: {00B100}Você Pegou o seu Skate{FFFFFF}!.");
-        }
-        else
-        {
-            InfoSkate[playerid][sActive] = false;
-            DestroyObject(InfoSkate[playerid][sSkate]);
+            SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Type Two!");
+        } else {
+            if (getData_Skate[playerid][sType] == true) {
+            DestroyObject(getData_Skate[playerid][sSkate]);
             RemovePlayerAttachedObject(playerid, INDEX_SKATE);
-            PlayerPlaySound(playerid, 21000, 0, 0, 0);
-            SendClientMessage(playerid, -1, "{FFFFFF}Skate: {B00000}Skate Active!{FFFFFF}!.");
+
+            // the skate is placed in the back
+            SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
+
+            SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Type One!");
+            }
         }
     }
-    else 
+    else if (!strcmp(skate_option, "MODE One", false))
     {
-        SendClientMessage(playerid, -1, "{FFFFFF}Skate: {00B7FF}Skate Un-Active!{FFFFFF}!.");
+        if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate No-Active!");
+        if (getData_Skate[playerid][sMode] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate Allready in Mode One!");
+
+        getData_Skate[playerid][sMode] = false;
+        SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Mode One!");
     }
+    else if (!strcmp(skate_option, "MODE Two", false))
+    {
+        if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate No-Active!");
+        if (getData_Skate[playerid][sMode] == true) return SendClientMessage(playerid, 0xFF0000FF, "Skate Allready in Mode Two!");
+
+        getData_Skate[playerid][sMode] = true;
+        SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Mode Two!");
+    }
+    
     return 1;
 }
