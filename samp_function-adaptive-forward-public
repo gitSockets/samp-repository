@@ -7,14 +7,20 @@
 #define endfunction \
 	}
 
-// example using
-main() {
-	new message[] = "Hello World!");
-	CallLocalFunction("myFunc", "s", message);
-}
+//
+// Example Using
+//
 
-function myFunc(message[]) {
-	print(message);
+public OnPlayerDeath(playerid, killerid, reason[]) {
+	SetTimerEx("TestFunction", 6000, false, "d", playerid);
 	return 1;
 }
-endfunction
+
+function TestFunction(playerid) {
+	new string[222];
+	format(string, sizeof(string), "%s has Death!", playerid);
+	SendClientMessageToAll(-1, string);
+	// return
+	return 1;
+}
+endfunction // end
