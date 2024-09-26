@@ -1,8 +1,3 @@
-/**
-* Copyright (C) Socket. All rights reserved.
-* Licensed under the terms described in the LICENSE file in the root of this project.
-*/
-
 //
 // Original Script: https://pastebin.com/X8dC3EXW
 //
