@@ -29,8 +29,8 @@ public OnFilterScriptExit()
 #define INDEX_SKATE (0)       //is the slot that used SetPlayerAttachedObject
 enum SKATE_ENUM {
 	bool: sActive,
-    bool: sMode,
-    bool: sType,
+	bool: sMode,
+	bool: sType,
 	sSkate,
 };
 new getData_Skate[MAX_PLAYERS][SKATE_ENUM];
