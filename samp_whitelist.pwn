@@ -3,6 +3,7 @@
 //
 
 // Install Dini2 from https://github.com/xpq0w0/SAMP-dini2.inc/blob/master/pawno/include/dini2.inc
+
 // included
 #include <a_samp> // open.mp
 #include <sscanf> // or sscanf 2
@@ -77,7 +78,7 @@ public OnFilterScriptExit() {
 	}
 
 // dialog
-#define DIALOG_UNDEFINED (1945)
+#define d_WHITELIST (1945)
 
 // enum
 enum Whitelist_DATA
@@ -97,7 +98,7 @@ endfunction
 function LoadWhitelistData(playerid)
 {
     new File[122];
-    format(File, sizeof(File), "Server_Whitelist/%s.ini", __GetPlayerName(playerid));
+    format(File, sizeof(File), "Server_Whitelist/%s.ini", GetPlayerNameEx(playerid));
 
     // create print
     printf("File path: %s", File);
@@ -115,7 +116,7 @@ function LoadWhitelistData(playerid)
             // edit the string dialog for your server.
             new string[552];
             format(string, sizeof(string), "{FF0000}ERROR: {999999}Nama yang Anda gunakan, {FFF070}%s {FFFFFF}Tidak terdaftar dalam Whitelist Kami, Silahkan Daftar terlebih dahulu!", GetPlayerNameEx(playerid));
-            ShowPlayerDialog(playerid, DIALOG_UNDEFINED, DIALOG_STYLE_MSGBOX, "{FFF070}Welcome :)", string, "Close", "");
+            ShowPlayerDialog(playerid, d_WHITELIST, DIALOG_STYLE_MSGBOX, "{FFF070}Welcome :)", string, "Close", "");
             SetTimerEx("whitelist_kick_delay", 5000, 0, "d", playerid);
         }
     }
@@ -136,9 +137,9 @@ endfunction
 
 // Callbacks
 public OnPlayerConnect(playerid) {
-	if (!IsValidRoleplayName(GetPlayerNameEx)) return Kick(playerid);
+  if (!IsValidRoleplayName(GetPlayerNameEx)) return Kick(playerid);
 
-	LoadWhitelistData(playerid);
+  LoadWhitelistData(playerid);
   return 1;
 }
 
