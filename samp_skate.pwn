@@ -1,13 +1,10 @@
 //
 // Original Script: https://pastebin.com/X8dC3EXW
 //
-
-// required included
-#include <a_samp> // open.mp
-#include <sscanf> // or sscanf 2
-#include <zcmd> // or pawn.cmd
-
-#define __SOCKET__
+#define _GNU_SOURCE
+#include <a_samp>
+#include <sscanf>
+#include <zcmd>
 
 main() {}
 
@@ -21,8 +18,9 @@ public OnFilterScriptExit()
     return 1;
 }
 
-#define INDEX_SKATE (0)       //is the slot that used SetPlayerAttachedObject
-enum SKATE_ENUM {
+#define INDEX_SKATE (0)
+enum SKATE_ENUM
+{
 	bool: sActive,
 	bool: sMode,
 	bool: sType,
@@ -146,7 +144,7 @@ COMMAND:skate(playerid, params[])
             SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Type One!");
         }
     }
-    else if (!strcmp(skate_option, "MODE One", false))
+    else if (!strcmp(skate_option, "MODE", false))
     {
         if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate No-Active!");
         if (getData_Skate[playerid][sMode] == false) {
