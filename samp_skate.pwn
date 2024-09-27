@@ -94,7 +94,7 @@ COMMAND:skate(playerid, params[])
     if (sscanf(params, "s[22]", skate_option))
     {
         SendClientMessage(playerid, -1, "/skate [Option]");
-        SendClientMessage(playerid, -1, "Option - /skate 'START', 'STOP', 'Type', 'MODE One', 'MODE Two'");
+        SendClientMessage(playerid, -1, "Option - /skate 'START', 'STOP', 'TYPE', 'MODE'");
         return 1;
     }
     if (!strcmp(skate_option, "START", false))
@@ -124,7 +124,7 @@ COMMAND:skate(playerid, params[])
         PlayerPlaySound(playerid, 21000, 0, 0, 0);
         SendClientMessage(playerid, -1, "{FFFFFF}Skate: {B00000}Skate has Stopped!{FFFFFF}!.");
     }
-    else if (!strcmp(skate_option, "Type", false))
+    else if (!strcmp(skate_option, "TYPE", false))
     {
         if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "You Can't Only Change Skate Type Skate in mode Active!");
 
@@ -149,19 +149,14 @@ COMMAND:skate(playerid, params[])
     else if (!strcmp(skate_option, "MODE One", false))
     {
         if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate No-Active!");
-        if (getData_Skate[playerid][sMode] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate Allready in Mode One!");
-
-        getData_Skate[playerid][sMode] = false;
-        SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Mode One!");
+        if (getData_Skate[playerid][sMode] == false) {
+		getData_Skate[playerid][sMode] = true;
+        	SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Mode Two!");
+	} else {
+	        getData_Skate[playerid][sMode] = false;
+	        SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Mode One!");
+	}
     }
-    else if (!strcmp(skate_option, "MODE Two", false))
-    {
-        if (getData_Skate[playerid][sActive] == false) return SendClientMessage(playerid, 0xFF0000FF, "Skate No-Active!");
-        if (getData_Skate[playerid][sMode] == true) return SendClientMessage(playerid, 0xFF0000FF, "Skate Allready in Mode Two!");
-
-        getData_Skate[playerid][sMode] = true;
-        SendClientMessage(playerid, 0x9ACD32FF, "Skate has change to Mode Two!");
-    }
-    
+    else return SendClientMessage(playerid, -1, "Option - /skate 'START', 'STOP', 'TYPE', 'MODE'");
     return 1;
 }
