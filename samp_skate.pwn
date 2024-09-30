@@ -8,11 +8,13 @@
 
 main() {}
 
-public OnFilterScriptInit() {
+public OnFilterScriptInit()
+{
     return 1;
 }
 
-public OnFilterScriptExit() {
+public OnFilterScriptExit()
+{
     return 1;
 }
 
@@ -23,12 +25,11 @@ enum SKATE_ENUM {
     bool: sType,
     sSkate,
 };
-
 new getData_Skate[MAX_PLAYERS][SKATE_ENUM];
 
 public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys) {
+    static bool:act;
     if (getData_Skate[playerid][sActive] == true && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
-        static bool:act;
         SetPlayerArmedWeapon(playerid, 0);
 
         if (newkeys & KEY_HANDBRAKE) {
