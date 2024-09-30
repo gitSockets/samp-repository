@@ -59,10 +59,8 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys) {
                 RemovePlayerAttachedObject(playerid, INDEX_SKATE);
 
                 if (getData_Skate[playerid][sType] == false) {
-                    // the skate is placed on the right arm
                     SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
                 } else {
-                    // the skate is placed in the back
                     SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 1, 0.055999, -0.173999, -0.007000, -95.999893, -1.600010, 24.099992, 1.000000, 1.000000, 1.000000);
                 }
             }
@@ -75,9 +73,8 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys) {
 COMMAND:skate(playerid, params[]) {
     new skate_option[22];
 
-    if (IsPlayerInAnyVehicle(playerid)) {
+    if (IsPlayerInAnyVehicle(playerid))
         return SendClientMessage(playerid, 0xFF0000FF, "You can't use this command in a vehicle!");
-    }
 
     if (sscanf(params, "s[22]", skate_option)) {
         SendClientMessage(playerid, -1, "/skate [Option]");
@@ -94,11 +91,9 @@ COMMAND:skate(playerid, params[]) {
         SetPlayerArmedWeapon(playerid, 0);
         getData_Skate[playerid][sActive] = true;
 
-        // the skate is placed on the right arm
         SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
         PlayerPlaySound(playerid, 1131);
-    } 
-    else if (!strcmp(skate_option, "STOP", false)) {
+    } else if (!strcmp(skate_option, "STOP", false)) {
         if (getData_Skate[playerid][sActive] == false) {
             return SendClientMessage(playerid, 0xFF0000FF, "Skate already inactive!");
         }
@@ -108,8 +103,7 @@ COMMAND:skate(playerid, params[]) {
         RemovePlayerAttachedObject(playerid, INDEX_SKATE);
         PlayerPlaySound(playerid, 21000, 0, 0, 0);
         SendClientMessage(playerid, -1, "{FFFFFF}Skate: {B00000}Skate has stopped!");
-    } 
-    else if (!strcmp(skate_option, "TYPE", false)) {
+    } else if (!strcmp(skate_option, "TYPE", false)) {
         if (getData_Skate[playerid][sActive] == false) {
             return SendClientMessage(playerid, 0xFF0000FF, "You can only change skate type while active!");
         }
@@ -118,19 +112,16 @@ COMMAND:skate(playerid, params[]) {
             DestroyObject(getData_Skate[playerid][sSkate]);
             RemovePlayerAttachedObject(playerid, INDEX_SKATE);
 
-            // the skate is placed in the back
             SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 1, 0.055999, -0.173999, -0.007000, -95.999893, -1.600010, 24.099992, 1.000000, 1.000000, 1.000000);
             SendClientMessage(playerid, 0x9ACD32FF, "Skate has changed to Type Two!");
         } else {
             DestroyObject(getData_Skate[playerid][sSkate]);
             RemovePlayerAttachedObject(playerid, INDEX_SKATE);
 
-            // the skate is placed on the right arm
             SetPlayerAttachedObject(playerid, INDEX_SKATE, 19878, 6, -0.055999, 0.013000, 0.000000, -84.099983, 0.000000, -106.099998, 1.000000, 1.000000, 1.000000);
             SendClientMessage(playerid, 0x9ACD32FF, "Skate has changed to Type One!");
         }
-    } 
-    else if (!strcmp(skate_option, "MODE", false)) {
+    } else if (!strcmp(skate_option, "MODE", false)) {
         if (getData_Skate[playerid][sActive] == false) {
             return SendClientMessage(playerid, 0xFF0000FF, "Skate is inactive!");
         }
