@@ -3,13 +3,33 @@
 	{
 #define endfunction \
 	}
-	
+//
+// Example
+//
+function myFUNCC(parameter, parameter) {
+	return 1;
+}
+
+// <========================>
+
 stock GetPlayerNameEx(playerid)
 {
 	new __name[MAX_PLAYER_NAME+1];
 	GetPlayerName(playerid, __name, sizeof(__name));
 	return 1;
 }
+
+//
+// Example
+//
+public OnPlayerConnect(playerid) {
+	new string[200+1];
+	format(string, sizeof(string), "Welcome %s[%d]", GetPlayerNameEx(playerid), playerid);
+	SendClientMessage(playerid, -1, string);
+	return 1;
+}
+
+// <========================>
 
 SendClientMessageEx(playerid, color, const str[], {Float,_}:...) 
 {
@@ -45,4 +65,12 @@ SendClientMessageEx(playerid, color, const str[], {Float,_}:...)
 		#emit RETN
 	}
 	return SendClientMessage(playerid, color, str);
+}
+
+//
+// Example
+//
+public OnPlayerConnect(playerid) {
+	SendClientMessage(playerid, "Welcome %s[%d]", GetPlayerNameEx(playerid), playerid);
+	return 1;
 }
