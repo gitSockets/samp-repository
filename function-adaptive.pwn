@@ -9,6 +9,7 @@
 function myFUNCC(parameter, parameter) {
 	return 1;
 }
+endfunction
 
 // <========================>
 
