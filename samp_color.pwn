@@ -1,3 +1,5 @@
+#include "a_samp"
+
 // external string color
 // Additional string colors
 #define COLOR_CYANBLUE 0x00BFFF00 // Deep Sky Blue
